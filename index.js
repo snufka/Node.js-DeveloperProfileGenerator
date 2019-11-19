@@ -3,23 +3,23 @@ const axios = require("axios");
 const inquirer = require("inquirer");
 
 inquirer
-    .prompt({
+    .prompt([{
         type: "input",
         message: "Enter your GitHub username:",
         name: "username"
     },
-        {
-            type: "input",
-            name: "location",
-            message: "Where are you from?"
-        },
-        {
-            type: "checkbox",
-            name: "color",
-            message: "What is your favorite color?",
-            choosies: ["green", "yellow", "red"]
-        })
-    .then(function ({ username }) {
+    {
+        type: "input",
+        name: "location",
+        message: "Where are you from?"
+    },
+    {
+        type: "checkbox",
+        name: "color",
+        message: "What is your favorite color?",
+        choices: ["green", "yellow", "red"]
+    }])
+    .then(({ username }) => {
         const queryUrl = `https://api.github.com/users/${username}/repos?per_page=100`;
 
         axios.get(queryUrl).then(function (res) {
